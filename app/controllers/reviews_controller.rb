@@ -1,6 +1,11 @@
 class ReviewsController < ApplicationController
   protect_from_forgery with: :null_session
 
+  def index 
+    user_reviews = User.find_by(slug: params[:user_slug]).reviews
+    render json: user_reviews
+  end
+
   def create 
     review = Review.new(review_params)
     if review.save
